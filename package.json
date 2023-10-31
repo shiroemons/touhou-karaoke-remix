@@ -11,10 +11,13 @@
     "pages:deploy": "npm run build && wrangler pages deploy ./public"
   },
   "dependencies": {
+    "@mantine/core": "^7.1.7",
+    "@mantine/hooks": "^7.1.7",
     "@remix-run/cloudflare": "^2.1.0",
     "@remix-run/cloudflare-pages": "^2.1.0",
     "@remix-run/css-bundle": "^2.1.0",
     "@remix-run/react": "^2.1.0",
+    "add": "^2.0.6",
     "isbot": "^3.6.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -26,6 +29,9 @@
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "eslint": "^8.38.0",
+    "postcss": "^8.4.31",
+    "postcss-preset-mantine": "^1.9.0",
+    "postcss-simple-vars": "^7.0.1",
     "typescript": "^5.1.0",
     "wrangler": "^3.1.1"
   },

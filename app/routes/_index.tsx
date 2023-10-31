@@ -1,4 +1,5 @@
 import type { MetaFunction } from "@remix-run/cloudflare";
+import { ColorSchemeToggle } from "~/components/ColorSchemeToggle/ColorSchemeToggle";
 
 export const meta: MetaFunction = () => {
   return [
@@ -36,6 +37,7 @@ export default function Index() {
           </a>
         </li>
       </ul>
+      <ColorSchemeToggle />
     </div>
   );
 }
