@@ -25,7 +25,7 @@ import { Panel } from '~/components/Panel';
 import { ScrollTo } from '~/components/ScrollTo';
 import { NoResultsBoundary } from '~/components/NoResultsBoundary';
 import { SearchErrorToast } from '~/components/SearchErrorToast';
-import tailwindStyles from '../tailwind.css';
+import tailwindStyles from '../styles/tailwind.css';
 
 export const meta: MetaFunction = () => {
   return [

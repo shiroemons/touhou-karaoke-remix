@@ -4,12 +4,13 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "build": "remix build",
+    "build": "npm run build:css && npm run build:remix",
     "build:css": "npm run generate:css --minify",
+    "build:remix": "remix build",
     "dev": "remix dev --manual -c \"npm run start\"",
     "start": "wrangler pages dev --compatibility-date=2023-06-21 ./public",
     "typecheck": "tsc",
-    "generate:css": "npx tailwindcss -o ./app/tailwind.css",
+    "generate:css": "npx tailwindcss -o ./app/styles/tailwind.css",
     "postinstall": "remix-esbuild-override",
     "pages:deploy": "npm run build && wrangler pages deploy ./public"
   },
