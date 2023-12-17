@@ -7,9 +7,9 @@ type NoResultsBoundaryProps = {
 };
 
 export function NoResultsBoundary({
-                                    children,
-                                    fallback,
-                                  }: NoResultsBoundaryProps) {
+  children,
+  fallback,
+}: NoResultsBoundaryProps) {
   const { results } = useInstantSearch();
 
   // The `__isArtificial` flag makes sure to not display the No Results message

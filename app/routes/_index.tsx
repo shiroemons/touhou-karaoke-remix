@@ -20,6 +20,8 @@ import type { LinksFunction, MetaFunction, LoaderFunction } from "@remix-run/clo
 import { json } from '@remix-run/cloudflare';
 import { useLoaderData } from '@remix-run/react';
 
+import { MantineProvider } from "@mantine/core";
+
 import { Hit } from '~/components/Hit';
 import { Panel } from '~/components/Panel';
 import { ScrollTo } from '~/components/ScrollTo';
@@ -35,8 +37,8 @@ export const meta: MetaFunction = () => {
 };
 
 const searchClient = algoliasearch(
-  'latency',
-  '6be0576ff61c053d5f9a3225e2a90f76',
+  'DPK8SIFE76',
+  'ce2f66a6be69d4d6e839d33df7c43f72',
   {
     requester: createFetchRequester(),
   }
@@ -66,46 +68,48 @@ type SearchProps = {
 
 function Search({ serverState, serverUrl }: SearchProps) {
   return (
-    <InstantSearchSSRProvider {...serverState}>
-      <InstantSearch
-        searchClient={searchClient}
-        indexName="instant_search"
-        routing={{
-          router: history({
-            getLocation() {
-              if (typeof window === 'undefined') {
-                return new URL(serverUrl!) as unknown as Location;
-              }
+    <MantineProvider>
+      <InstantSearchSSRProvider {...serverState}>
+        <InstantSearch
+          searchClient={searchClient}
+          indexName="touhou_karaoke"
+          routing={{
+            router: history({
+              getLocation() {
+                if (typeof window === 'undefined') {
+                  return new URL(serverUrl!) as unknown as Location;
+                }
 
-              return window.location;
-            },
-          }),
-        }}
-        insights={true}
-      >
-        <SearchErrorToast />
+                return window.location;
+              },
+            }),
+          }}
+          insights={true}
+        >
+          <SearchErrorToast />
 
-        <ScrollTo className="max-w-6xl p-4 flex gap-4 m-auto">
-          <div>
-            <DynamicWidgets fallbackComponent={FallbackComponent} />
-          </div>
+          <ScrollTo className="max-w-6xl p-4 flex gap-1 m-auto">
+            <div>
+              <DynamicWidgets fallbackComponent={FallbackComponent} />
+            </div>
 
-          <div className="flex flex-col w-full gap-8">
-            <SearchBox />
-            <NoResultsBoundary fallback={<NoResults />}>
-              <Hits
-                hitComponent={Hit}
-                classNames={{
-                  list: 'grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4',
-                  item: 'p-2 w-full',
-                }}
-              />
-              <Pagination className="flex self-center" />
-            </NoResultsBoundary>
-          </div>
-        </ScrollTo>
-      </InstantSearch>
-    </InstantSearchSSRProvider>
+            <div className="flex flex-col w-full gap-8">
+              <SearchBox />
+              <NoResultsBoundary fallback={<NoResults />}>
+                <Hits
+                  hitComponent={Hit}
+                  classNames={{
+                    list: 'grid grid-cols-1 gap-1 lg:grid-cols-3',
+                    item: 'p-2 w-full',
+                  }}
+                />
+                <Pagination className="flex self-center" />
+              </NoResultsBoundary>
+            </div>
+          </ScrollTo>
+        </InstantSearch>
+      </InstantSearchSSRProvider>
+    </MantineProvider>
   );
 }
 
@@ -123,7 +127,7 @@ function NoResults() {
   return (
     <div>
       <p>
-        No results for <q>{indexUiState.query}</q>.
+        <q>{indexUiState.query}</q> は見つかりませんでした。
       </p>
     </div>
   );
@@ -132,5 +136,9 @@ function NoResults() {
 export default function HomePage() {
   const { serverState, serverUrl } = useLoaderData();
 
-  return <Search serverState={serverState} serverUrl={serverUrl} />;
+  return (
+    <>
+      <Search serverState={serverState} serverUrl={serverUrl} />
+    </>
+  );
 }
